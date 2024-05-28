@@ -143,8 +143,19 @@ func (o *OAuth2) Start(w http.ResponseWriter, r *http.Request) error {
 	} else {
 		authboss.DelSession(w, authboss.SessionOAuth2Params)
 	}
-
-	authCodeUrl := cfg.OAuth2Config.AuthCodeURL(state)
+	overrideRediriectURI := r.URL.Query().Get("redirect_uri")
+	oauthConfig := cfg.OAuth2Config
+	if overrideRediriectURI != "" {
+		// TODO validates overrideRediriectURI by whitelisted WhitelistRedirectURIs []string
+		oauthConfig = &oauth2.Config{
+			ClientID:     cfg.OAuth2Config.ClientID,
+			ClientSecret: cfg.OAuth2Config.ClientSecret,
+			Endpoint:     cfg.OAuth2Config.Endpoint,
+			RedirectURL:  overrideRediriectURI,
+			Scopes:       cfg.OAuth2Config.Scopes,
+		}
+	}
+	authCodeUrl := oauthConfig.AuthCodeURL(state)
 
 	extraParams := cfg.AdditionalParams.Encode()
 	if len(extraParams) > 0 {

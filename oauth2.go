@@ -25,7 +25,8 @@ as a map[string]string and subsequently passed into OAuth2ServerStorer.NewFromOA
 API this must be handled for each provider separately.
 */
 type OAuth2Provider struct {
-	OAuth2Config     *oauth2.Config
-	AdditionalParams url.Values
-	FindUserDetails  func(context.Context, oauth2.Config, *oauth2.Token) (map[string]string, error)
+	OAuth2Config          *oauth2.Config
+	WhitelistRedirectURIs []string
+	AdditionalParams      url.Values
+	FindUserDetails       func(context.Context, oauth2.Config, *oauth2.Token) (map[string]string, error)
 }
