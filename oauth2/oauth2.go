@@ -146,7 +146,7 @@ func (o *OAuth2) Start(w http.ResponseWriter, r *http.Request) error {
 	overrideRediriectURI := r.URL.Query().Get("redirect_uri")
 	oauthConfig := cfg.OAuth2Config
 	if overrideRediriectURI != "" {
-		// TODO validates overrideRediriectURI by whitelisted WhitelistRedirectURIs []string
+		// TODO will validates overrideRediriectURI by whitelisted WhitelistRedirectURIs []string
 		oauthConfig = &oauth2.Config{
 			ClientID:     cfg.OAuth2Config.ClientID,
 			ClientSecret: cfg.OAuth2Config.ClientSecret,
