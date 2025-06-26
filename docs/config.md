@@ -4,7 +4,7 @@ The config struct is an important part of Authboss. It's the key to making Authb
 want with the implementations you want. Please look at it's code definition as you read the
 documentation below, it will make much more sense.
 
-[Config Struct Documentation](https://pkg.go.dev/github.com/volatiletech/authboss/v3/#Config)
+[Config Struct Documentation](https://pkg.go.dev/github.com/aarondl/authboss/v3/#Config)
 
 ### Paths
 
@@ -26,7 +26,7 @@ Mail sending related options.
 ### Storage
 
 These are the implementations of how storage on the server and the client are done in your
-app. There are no default implementations for these at this time. See the [Godoc](https://pkg.go.dev/mod/github.com/volatiletech/authboss/v3) for more information
+app. There are no default implementations for these at this time. See the [Godoc](https://pkg.go.dev/mod/github.com/aarondl/authboss/v3) for more information
 about what these are.
 
 ### Core
@@ -35,5 +35,5 @@ These are the implementations of the HTTP stack for your app. How do responses r
 they redirected? How are errors handled?
 
 For most of these there are default implementations from the
-[defaults package](https://github.com/volatiletech/authboss/tree/master/defaults) available, but not for all.
+[defaults package](https://github.com/aarondl/authboss/tree/master/defaults) available, but not for all.
 See the package documentation for more information about what's available.

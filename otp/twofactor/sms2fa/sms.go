@@ -14,8 +14,8 @@ import (
 	"time"
 
 	"github.com/friendsofgo/errors"
-	"github.com/volatiletech/authboss/v3"
-	"github.com/volatiletech/authboss/v3/otp/twofactor"
+	"github.com/aarondl/authboss/v3"
+	"github.com/aarondl/authboss/v3/otp/twofactor"
 )
 
 // Session keys

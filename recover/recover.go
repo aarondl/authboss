@@ -15,7 +15,7 @@ import (
 	"path"
 	"time"
 
-	"github.com/volatiletech/authboss/v3"
+	"github.com/aarondl/authboss/v3"
 )
 
 // Constants for templates etc.

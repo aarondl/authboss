@@ -11,7 +11,7 @@ Of course the standard practice of fetching the library is just the beginning:
 
 ```bash
 # Get the latest, you must be using Go modules as of v3 of Authboss.
-go get -u github.com/volatiletech/authboss/v3
+go get -u github.com/aarondl/authboss/v3
 ```
 
 Here's a bit of starter code that was stolen from the sample.
@@ -26,7 +26,7 @@ ab.Config.Storage.CookieState = myCookieImplementation
 ab.Config.Paths.Mount = "/authboss"
 ab.Config.Paths.RootURL = "https://www.example.com/"
 
-// This is using the renderer from: github.com/volatiletech/authboss
+// This is using the renderer from: github.com/aarondl/authboss
 ab.Config.Core.ViewRenderer = abrenderer.NewHTML("/auth", "ab_views")
 // Probably want a MailRenderer here too.
 
@@ -49,4 +49,4 @@ mux.Mount("/authboss", http.StripPrefix("/authboss", ab.Config.Core.Router))
 For a more in-depth look you **definitely should** look at the authboss sample to see what a full 
 implementation looks like. This will probably help you more than any of this documentation.
 
-[https://github.com/volatiletech/authboss-sample](https://github.com/volatiletech/authboss-sample)
+[https://github.com/aarondl/authboss-sample](https://github.com/aarondl/authboss-sample)

@@ -19,7 +19,7 @@ to your app:
 
 Everything under Config.Storage and Config.Core are required and you must provide them,
 however you can optionally use default implementations from the
-[defaults package](https://github.com/volatiletech/authboss/tree/master/defaults).
+[defaults package](https://github.com/aarondl/authboss/tree/master/defaults).
 This also provides an easy way to share implementations of certain stack pieces (like HTML Form Parsing).
 As you saw in the example above these can be easily initialized with the `SetCore` method in that
 package.
@@ -48,11 +48,11 @@ and the MailRenderer. For more information please see the use case [Rendering Vi
 
 ### ServerStorer implementation
 
-The [ServerStorer](https://pkg.go.dev/github.com/volatiletech/authboss/v3/#ServerStorer) is
+The [ServerStorer](https://pkg.go.dev/github.com/aarondl/authboss/v3/#ServerStorer) is
 meant to be upgraded to add capabilities depending on what modules you'd like to use.
 It starts out by only knowing how to save and load users, but the `remember` module as an example
 needs to be able to find users by remember me tokens, so it upgrades to a
-[RememberingServerStorer](https://pkg.go.dev/github.com/volatiletech/authboss/v3/#RememberingServerStorer)
+[RememberingServerStorer](https://pkg.go.dev/github.com/aarondl/authboss/v3/#RememberingServerStorer)
 which adds these abilities.
 
 Your `ServerStorer` implementation does not need to implement all these additional interfaces
@@ -61,7 +61,7 @@ unless you're using a module that requires it. See the [Use Cases](#use-cases) d
 ### User implementation
 
 Users in Authboss are represented by the
-[User interface](https://pkg.go.dev/github.com/volatiletech/authboss/v3/#User). The user
+[User interface](https://pkg.go.dev/github.com/aarondl/authboss/v3/#User). The user
 interface is a flexible notion, because it can be upgraded to suit the needs of the various modules.
 
 Initially the User must only be able to Get/Set a `PID` or primary identifier. This allows the authboss
@@ -71,7 +71,7 @@ to save/load users.
 As mentioned, it can be upgraded, for example suppose now we want to use the `confirm` module,
 in that case the e-mail address now becomes a requirement. So the `confirm` module will attempt
 to upgrade the user (and panic if it fails) to a
-[ConfirmableUser](https://pkg.go.dev/github.com/volatiletech/authboss/v3/#ConfirmableUser)
+[ConfirmableUser](https://pkg.go.dev/github.com/aarondl/authboss/v3/#ConfirmableUser)
 which supports retrieving and setting of confirm tokens, e-mail addresses, and a confirmed state.
 
 Your `User` implementation does not need to implement all these additional user interfaces unless you're
@@ -80,9 +80,9 @@ requirements are.
 
 ### Values implementation
 
-The [BodyReader](https://pkg.go.dev/github.com/volatiletech/authboss/v3/#BodyReader)
+The [BodyReader](https://pkg.go.dev/github.com/aarondl/authboss/v3/#BodyReader)
 interface in the Config returns
-[Validator](https://pkg.go.dev/github.com/volatiletech/authboss/v3/#Validator) implementations
+[Validator](https://pkg.go.dev/github.com/aarondl/authboss/v3/#Validator) implementations
 which can be validated. But much like the storer and user it can be upgraded to add different
 capabilities.
 
@@ -93,7 +93,7 @@ requested and switches on that to parse the body in whatever way
 valuer required by the module.
 
 An example of an upgraded `Valuer` is the
-[UserValuer](https://pkg.go.dev/github.com/volatiletech/authboss/v3/#UserValuer)
+[UserValuer](https://pkg.go.dev/github.com/aarondl/authboss/v3/#UserValuer)
 which stores and validates the PID and Password that a user has provided for the modules to use.
 
 Your body reader implementation does not need to implement all valuer types unless you're

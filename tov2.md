@@ -1,7 +1,7 @@
 # Migrating to v2 from v1
 
 As always, the best way to understand most of this is to look at the
-[authboss-sample](https://github.com/volatiletech/authboss-sample). You could even look at
+[authboss-sample](https://github.com/aarondl/authboss-sample). You could even look at
 the commits that lead from v1 to v2 (though it is not divided nicely into small commits).
 
 ## Configuration
@@ -24,7 +24,7 @@ You probably will not want to override any of these and so I'd suggest a peek at
 easily.
 
 There is also an HTML renderer available at
-[authboss-renderer](https://github.com/volatiletech/authboss-renderer).
+[authboss-renderer](https://github.com/aarondl/authboss-renderer).
 
 ## Server storage
 

@@ -52,7 +52,7 @@ import (
 	"github.com/friendsofgo/errors"
 	"golang.org/x/oauth2"
 
-	"github.com/volatiletech/authboss/v3"
+	"github.com/aarondl/authboss/v3"
 )
 
 // FormValue constants

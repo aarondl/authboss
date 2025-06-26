@@ -452,5 +452,5 @@ the type in the attribute map matches what's in the struct before assignment.
 ### Changed
 This breaking change allows multiple sites running off the same code base to each use different configurations of Authboss. To migrate
 your code simply use authboss.New() to get an instance of Authboss and all the old things that used to be in the authboss package are
-now there. See [this commit to the sample](https://github.com/volatiletech/authboss-sample/commit/eea55fc3b03855d4e9fb63577d72ce8ff0cd4079)
+now there. See [this commit to the sample](https://github.com/aarondl/authboss-sample/commit/eea55fc3b03855d4e9fb63577d72ce8ff0cd4079)
 to see precisely how to make these changes.

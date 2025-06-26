@@ -3,7 +3,7 @@ package mocks
 import (
 	"context"
 
-	"github.com/volatiletech/authboss/v3"
+	"github.com/aarondl/authboss/v3"
 )
 
 type UserWithSecondaryEmails struct {

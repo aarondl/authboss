@@ -1,4 +1,4 @@
-module github.com/volatiletech/authboss/v3
+module github.com/aarondl/authboss/v3
 
 go 1.20
 

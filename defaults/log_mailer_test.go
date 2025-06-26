@@ -7,7 +7,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/volatiletech/authboss/v3"
+	"github.com/aarondl/authboss/v3"
 )
 
 func TestMailer(t *testing.T) {
