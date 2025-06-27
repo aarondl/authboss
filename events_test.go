@@ -92,6 +92,94 @@ func TestEventsHandled(t *testing.T) {
 	}
 }
 
+func TestEventsHaltHandled(t *testing.T) {
+	t.Parallel()
+
+	ab := New()
+	firstCalled := false
+	secondCalled := false
+
+	firstHandled := false
+	secondHandled := false
+
+	ab.Events.Before(EventRegister, func(w http.ResponseWriter, r *http.Request, handled bool) (bool, error) {
+		firstCalled = true
+		firstHandled = handled
+		return true, ErrHalt
+	})
+	ab.Events.Before(EventRegister, func(w http.ResponseWriter, r *http.Request, handled bool) (bool, error) {
+		secondCalled = true
+		secondHandled = handled
+		return false, nil
+	})
+
+	handled, err := ab.Events.FireBefore(EventRegister, nil, nil)
+	if err != nil {
+		t.Error("Unexpected error:", err)
+	}
+	if !handled {
+		t.Error("it should have been handled")
+	}
+
+	if !firstCalled {
+		t.Error("expected first to have been called")
+	}
+	if firstHandled {
+		t.Error("first should not see the event as being handled")
+	}
+
+	if secondCalled {
+		t.Error("expected second to not have been called")
+	}
+	if secondHandled {
+		t.Error("second should not see the event as being handled (as second should not be running at all)")
+	}
+}
+
+func TestEventsHaltNotHandled(t *testing.T) {
+	t.Parallel()
+
+	ab := New()
+	firstCalled := false
+	secondCalled := false
+
+	firstHandled := false
+	secondHandled := false
+
+	ab.Events.Before(EventRegister, func(w http.ResponseWriter, r *http.Request, handled bool) (bool, error) {
+		firstCalled = true
+		firstHandled = handled
+		return false, ErrHalt
+	})
+	ab.Events.Before(EventRegister, func(w http.ResponseWriter, r *http.Request, handled bool) (bool, error) {
+		secondCalled = true
+		secondHandled = handled
+		return false, nil
+	})
+
+	handled, err := ab.Events.FireBefore(EventRegister, nil, nil)
+	if err != nil {
+		t.Error("Unexpected error:", err)
+	}
+	if handled {
+		t.Error("it should not have been handled")
+	}
+
+	if !firstCalled {
+		t.Error("expected first to have been called")
+	}
+	if firstHandled {
+		t.Error("first should not see the event as being handled")
+	}
+
+	if secondCalled {
+		t.Error("expected second to not have been called")
+	}
+	if secondHandled {
+		t.Error("second should not see the event as being handled (as second should not be running at all)")
+	}
+}
+
 func TestEventsErrors(t *testing.T) {
 	t.Parallel()
 
