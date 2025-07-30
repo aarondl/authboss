@@ -1,6 +1,8 @@
 package authboss
 
 import (
+	"fmt"
+	"github.com/friendsofgo/errors"
 	"net/http"
 )
 
@@ -8,6 +10,8 @@ import (
 
 // Event type is for describing events
 type Event int
+
+var ErrHalt = fmt.Errorf("event halt")
 
 // Event kinds
 const (
@@ -96,6 +100,13 @@ func (c *Events) call(evs []EventHandler, w http.ResponseWriter, r *http.Request
 	for _, fn := range evs {
 		interrupt, err := fn(w, r, handled)
 		if err != nil {
+			if errors.Is(err, ErrHalt) {
+				if interrupt {
+					handled = true
+				}
+				break
+			}
+
 			return false, err
 		}
 		if interrupt {
