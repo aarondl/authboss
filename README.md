@@ -41,7 +41,7 @@ Here are a few bullet point reasons you might like to try it out:
 * Saves you mistakes (at least using Authboss, people can bug fix as a collective and all benefit)
 * Should integrate with or without any web framework
 
-# [Click Here To Get Started](https://volatiletech.github.io/authboss/#/migration)
+# [Click Here To Get Started](https://aarondl.github.io/authboss/#/quick-start)
 
 # Readme Table of Contents
 <!-- TOC -->
