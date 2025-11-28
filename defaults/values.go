@@ -213,6 +213,13 @@ func NewHTTPBodyReader(readJSON, useUsernameNotEmail bool) *HTTPBodyReader {
 func (h HTTPBodyReader) Read(page string, r *http.Request) (authboss.Validator, error) {
 	var values map[string]string
 
+	// first parse form data regardless of content type. ParseForm() is safe to call even if there's no form data
+	if err := r.ParseForm(); err != nil {
+		return nil, errors.Wrapf(err, "failed to parse form on page: %s", page)
+	}
+	values = URLValuesToMap(r.Form)
+
+	// then if JSON mode is enabled, also try to read JSON body. any JSON values will override corresponding form values
 	if h.ReadJSON {
 		b, err := io.ReadAll(r.Body)
 		r.Body.Close()
@@ -220,14 +227,7 @@ func (h HTTPBodyReader) Read(page string, r *http.Request) (authboss.Validator, 
 			return nil, errors.Wrap(err, "failed to read http body")
 		}
 
-		if err = json.Unmarshal(b, &values); err != nil {
-			return nil, errors.Wrap(err, "failed to parse json http body")
-		}
-	} else {
-		if err := r.ParseForm(); err != nil {
-			return nil, errors.Wrapf(err, "failed to parse form on page: %s", page)
-		}
-		values = URLValuesToMap(r.Form)
+		_ = json.Unmarshal(b, &values)
 	}
 
 	rules := h.Rulesets[page]
