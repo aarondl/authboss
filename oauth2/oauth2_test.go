@@ -13,6 +13,7 @@ import (
 	"github.com/aarondl/authboss/v3/mocks"
 	"golang.org/x/oauth2"
 	"golang.org/x/oauth2/facebook"
+	"golang.org/x/oauth2/github"
 	"golang.org/x/oauth2/google"
 )
 
@@ -45,6 +46,20 @@ var testProviders = map[string]authboss.OAuth2Provider{
 			RedirectURL: "https://www.example.com/auth/oauth2/callback/facebook",
 		},
 		FindUserDetails: FacebookUserDetails,
+	},
+
+	"github": {
+
+		OAuth2Config: &oauth2.Config{
+			ClientID:     `jazz`,
+			ClientSecret: `hands`,
+			Scopes:       []string{`email`},
+			Endpoint:     github.Endpoint,
+			// This is typically set by Init() but some tests rely on it's existence
+			RedirectURL: "https://www.example.com/auth/oauth2/callback/github",
+		},
+
+		FindUserDetails: GithubUserDetails,
 	},
 }
 
