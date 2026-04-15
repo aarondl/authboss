@@ -20,6 +20,7 @@ const (
 const (
 	googleInfoEndpoint   = `https://www.googleapis.com/userinfo/v2/me`
 	facebookInfoEndpoint = `https://graph.facebook.com/me?fields=name,email`
+	githubInfoEndpoint   = `https://api.github.com/user`
 )
 
 type googleMeResponse struct {
@@ -87,4 +88,38 @@ func FacebookUserDetails(ctx context.Context, cfg oauth2.Config, token *oauth2.T
 		OAuth2Email: response.Email,
 		OAuth2Name:  response.Name,
 	}, nil
+}
+
+type githubMeResponse struct {
+	ID    string `json:"id"`
+	Email string `json:"email"`
+	Name  string `json:"name"`
+}
+
+// GithubUserDetails can be used as a FindUserDetails function
+// for an authboss.OAuth2Provider
+func GithubUserDetails(ctx context.Context, cfg oauth2.Config, token *oauth2.Token) (map[string]string, error) {
+	client := cfg.Client(ctx, token)
+	resp, err := clientGet(client, githubInfoEndpoint)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+	byt, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return nil, errors.Wrap(err, "failed to read body from github oauth2 endpoint")
+	}
+
+	var response githubMeResponse
+	if err = json.Unmarshal(byt, &response); err != nil {
+		return nil, errors.Wrap(err, "failed to parse json from github oauth2 endpoint")
+	}
+
+	return map[string]string{
+		OAuth2UID:   response.ID,
+		OAuth2Email: response.Email,
+		OAuth2Name:  response.Name,
+	}, nil
+
 }
