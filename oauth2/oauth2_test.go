@@ -90,6 +90,7 @@ func TestInit(t *testing.T) {
 
 	gets := []string{
 		"/oauth2/facebook", "/oauth2/callback/facebook",
+		"/oauth2/github", "/oauth2/callback/github",
 		"/oauth2/google", "/oauth2/callback/google",
 	}
 	if err := router.HasGets(gets...); err != nil {
