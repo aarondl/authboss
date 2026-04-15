@@ -2,9 +2,11 @@ package oauth2
 
 import (
 	"context"
+	"fmt"
 	"net/http"
 	"net/http/httptest"
 	"net/url"
+	"sort"
 	"strings"
 	"testing"
 	"time"
@@ -73,11 +75,24 @@ func TestInit(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	gets := []string{
-		"/oauth2/facebook", "/oauth2/callback/facebook",
-		"/oauth2/google", "/oauth2/callback/google",
+	providers := []string{}
+	get := []string{}
+
+	for provider := range testProviders {
+
+		providers = append(providers, provider)
 	}
-	if err := router.HasGets(gets...); err != nil {
+
+	sort.Strings(providers)
+
+	for _, provider := range providers {
+
+		get = append(get, fmt.Sprintf("/oauth2/%s", provider))
+		get = append(get, fmt.Sprintf("/oauth2/callback/%s", provider))
+
+	}
+
+	if err := router.HasGets(get...); err != nil {
 		t.Error(err)
 	}
 }
