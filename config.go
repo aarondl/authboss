@@ -83,6 +83,18 @@ type Config struct {
 		// LockDuration is how long an account is locked for.
 		LockDuration time.Duration
 
+		// IPLockAfter is the number of failed authentication attempts from a
+		// single client IP before the IP is blocked. Zero falls back to the
+		// iplock package default.
+		IPLockAfter int
+		// IPLockWindow is the rolling window in which IPLockAfter failed
+		// attempts must occur to trigger a block. Zero falls back to the
+		// iplock package default.
+		IPLockWindow time.Duration
+		// IPLockDuration is how long a client IP stays blocked once the
+		// threshold is reached. Zero falls back to the iplock package default.
+		IPLockDuration time.Duration
+
 		// LogoutMethod is the method the logout route should use
 		// (default should be DELETE)
 		LogoutMethod string
