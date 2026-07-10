@@ -1,13 +1,11 @@
 module github.com/aarondl/authboss/v3
 
-go 1.24.0
-
-toolchain go1.24.5
+go 1.25.0
 
 require (
 	github.com/friendsofgo/errors v0.9.2
 	github.com/pquerna/otp v1.4.0
-	golang.org/x/crypto v0.45.0
+	golang.org/x/crypto v0.52.0
 	golang.org/x/oauth2 v0.30.0
 )
 
